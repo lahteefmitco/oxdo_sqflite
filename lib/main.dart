@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Initialize person list
   List<Person> _personList = [];
-  
+
   SaveButtonMode _saveButtonMode = SaveButtonMode.save;
 
   // Only for updating
@@ -55,7 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-
     // Call all persons
     _getAllPersons();
 
@@ -144,12 +143,16 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               // name field
               TextField(
                 controller: _nameController,
                 focusNode: _nameFocusNode,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  label: Text("Name"),
+                  hintText: "Enter name",
+                  hintStyle: TextStyle(color: Colors.black38),
+                ),
               ),
               const SizedBox(
                 height: 8,
@@ -159,7 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
               TextField(
                 controller: _ageController,
                 focusNode: _ageFocus,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  label: Text("Age"),
+                  hintText: "Enter age",
+                  hintStyle: TextStyle(color: Colors.black38),
+                ),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(
@@ -169,19 +177,14 @@ class _MyHomePageState extends State<MyHomePage> {
               // save or edit buttton
               ElevatedButton(
                 onPressed: () {
-                  
                   if (_saveButtonMode == SaveButtonMode.save) {
-
                     // To save
                     final personToSave = Person(
                       name: _nameController.text.trim(),
                       age: int.tryParse(_ageController.text.trim()) ?? 0,
                     );
                     _addPerson(personToSave);
-
-
                   } else {
-
                     // To update
                     final personToUpdate = Person(
                       id: _personToUpdate?.id,
@@ -220,7 +223,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           IconButton(
                             onPressed: () {
-
                               // take data to update
                               _bringPersonToUpdata(person);
                             },
@@ -228,12 +230,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           IconButton(
                             onPressed: () {
-
                               // delete data
                               if (person.id != null) {
                                 _deletePerson(person.id!);
                               }
-
                             },
                             color: Colors.red,
                             icon: const Icon(Icons.delete),
@@ -255,7 +255,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
 
 enum SaveButtonMode { save, edit }
 
